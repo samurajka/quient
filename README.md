@@ -1,0 +1,1 @@
+Client for connecting to srv.quary.cz
