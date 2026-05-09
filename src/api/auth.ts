@@ -1,6 +1,10 @@
-const URL = "https://srv.quary.cz/api";
+// DEPRECATED
 
-export async function register(login:string, password:string, optional?:object) {
+/*const URL = "https://srv.quary.cz/api";
+
+export async function register(login:string, password:string, nick?:string) {
+    const nickname = nick || "";
+
     const res = await fetch(`${URL}/auth/register`,{
         method: "POST",
         headers:{
@@ -9,6 +13,7 @@ export async function register(login:string, password:string, optional?:object) 
         body: JSON.stringify({
             login,
             password,
+            nickname,
         }),
     });
 
@@ -31,3 +36,4 @@ export async function login(login:string, password:string) {
     return await res.json();
 };
 
+*/
