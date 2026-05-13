@@ -1,3 +1,4 @@
+/*
 const URL = "wss://srv.quary.cz/socket";
 
 const socket = new WebSocket(URL);
@@ -19,3 +20,4 @@ socket.onmessage = (event) => {
             break;
     }
 }
+//*/
