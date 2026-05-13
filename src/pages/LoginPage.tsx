@@ -4,15 +4,14 @@ import {useNavigate, Link} from 'react-router-dom';
 import {useAuth} from '../context/AuthContext'
 import { AuthForm } from '../components/AuthForm';
 
-export const RegisterPage: React.FC = () => {
+export const LoginPage: React.FC = () => {
     const navigate = useNavigate();
-    const { register, login, isLoading } = useAuth();
+    const { login, isLoading } = useAuth();
     const [error, setError] = useState<string | null>(null);
 
-    const handleRegister = async (loginpar: string, password: string, nick?: string) => {
+    const handleLogin = async (loginpar: string, password: string) => {
         try{
             setError(null);
-            await register(loginpar, password);
             await login(loginpar,password)
             navigate('/home');
         }catch (err: any){
@@ -24,15 +23,15 @@ export const RegisterPage: React.FC = () => {
         <Container>
             <Box sx={{ py: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant='h4' component='h1' gutterBottom sx={{ mb: 3}}>
-                    Register
+                    Login
                 </Typography>
 
-                <AuthForm onSubmit={handleRegister} isLoading={isLoading} error={error} isRegister={true} />
+                <AuthForm onSubmit={handleLogin} isLoading={isLoading} error={error} isRegister={false} />
 
                 <Typography sx={{ mt: 3}}>
-                    Already have an account?{' '}
-                    <Link to="/login">
-                        Login here
+                    Dont have an account?{' '}
+                    <Link to="/register">
+                        Register here
                     </Link>
                 </Typography>
             </Box>

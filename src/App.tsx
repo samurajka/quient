@@ -5,6 +5,8 @@ import { AppBar, Box, Container } from '@mui/material'
 import { HomePage } from './pages/HomePage'
 import { RegisterPage } from './pages/RegisterPage'
 import { AuthProvider } from './context/AuthContext'
+import { LoggedHomePage} from './pages/LoggedHomePage'
+import { LoginPage } from './pages/LoginPage'
 
 const AppContent: React.FC = () => {
   return(
@@ -16,6 +18,8 @@ const AppContent: React.FC = () => {
             <Routes>
               <Route path="/" element={<HomePage/>} />
               <Route path="/register" element={<RegisterPage/>} />
+              <Route path="/home" element={<LoggedHomePage/>} />
+              <Route path='/login' element={<LoginPage/>} />
             </Routes>
           </Container>
         </Box>
