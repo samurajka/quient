@@ -28,6 +28,7 @@ export const LoggedHomePage : React.FC = () => {
             <Typography sx={{ mt: 3}}>
                 Hello, { user?.nick || user?.login }
             </Typography>
+            <Button onClick={() => {navigate('/chat')}}>View Chat</Button>
             <Button onClick={() => {handleLogout();}}>Logout</Button>
         </Container>
     )

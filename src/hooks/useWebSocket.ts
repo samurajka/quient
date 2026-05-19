@@ -1,5 +1,7 @@
 import React, {useState, useCallback, useRef, useEffect} from 'react';
 import {useAuth} from '../context/AuthContext'
+import { useChat } from '../context/ChatContext';
+import type { ChatMessage } from '../types';
 
 export const useWebSocket = () => {
     const WEBSOCKET_URL = "wss://srv.quary.cz/socket";
@@ -8,6 +10,7 @@ export const useWebSocket = () => {
     const [connectionStatus, setConnectionStatus] = useState<string>();
 
     const {user, token} = useAuth();
+    const {addMessage} = useChat();
 
     const connect = useCallback(
     ()=>{
@@ -30,6 +33,30 @@ export const useWebSocket = () => {
                 },
                 'auth.loggedin': (p) => {
                     console.log('Logged in, expires at:', p.expiresAt)
+                },
+                'chat.message.single': (p) => {
+                    if(!p.message){return};
+                    const message: ChatMessage = {
+                        sender: p.message.nickname || p.message.login || "server",
+                        content: p.message.message,
+                        timestamp: p.message.timestamp,
+                        color: p.color || "#9F0090"
+                    }
+                    addMessage(message);
+                },
+                'chat.message.history': (p) =>{
+                    if(!p.messages){return;};
+                    console.log(p);
+                    for(let index = 0; index < p.messages.length; index++){
+                        let item = p.messages[index];
+                        let message: ChatMessage = {
+                            sender: item.nickname || item.login || "server",
+                            content: item.message,
+                            timestamp: item.timestamp,
+                            color: item.color || "#9F0090"
+                        }
+                        addMessage(message);
+                    }
                 }
             };
 

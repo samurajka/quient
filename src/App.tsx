@@ -7,6 +7,8 @@ import { RegisterPage } from './pages/RegisterPage'
 import { AuthProvider } from './context/AuthContext'
 import { LoggedHomePage} from './pages/LoggedHomePage'
 import { LoginPage } from './pages/LoginPage'
+import { ChatProvider } from './context/ChatContext'
+import { ChatPage } from './pages/ChatPage'
 
 const AppContent: React.FC = () => {
   return(
@@ -20,6 +22,7 @@ const AppContent: React.FC = () => {
               <Route path="/register" element={<RegisterPage/>} />
               <Route path="/home" element={<LoggedHomePage/>} />
               <Route path='/login' element={<LoginPage/>} />
+              <Route path='/chat' element={<ChatPage/>} />
             </Routes>
           </Container>
         </Box>
@@ -32,7 +35,9 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <AppContent />
+        <ChatProvider>
+          <AppContent />
+        </ChatProvider>
       </AuthProvider>
     </>
   )

@@ -22,3 +22,16 @@ export interface AuthContextType {
     login: (login:string, password:string) => Promise<void>;
     logout: (token:string) => Promise<void>;
 }
+
+export interface ChatMessage {
+    sender: string;
+    content: string;
+    timestamp: number;
+    color: string | null;
+}
+
+export interface ChatContextType {
+    messages: ChatMessage[];
+    addMessage: (message: ChatMessage) => void;
+    clearMessages: () => void;
+}

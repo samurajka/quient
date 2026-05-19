@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Box, Typography} from '@mui/material';
+import {Container} from '@mui/material';
 import {Link} from 'react-router-dom';
 
 export const HomePage: React.FC = () =>{

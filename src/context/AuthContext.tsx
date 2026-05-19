@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({children})
     const logout = useCallback(async (token: string) => {
         try{
             const response = await apiClient.logout(token);
+            if(response.message != "OK"){;}
             setUser(null);
             setToken(null);
             localStorage.removeItem('token');
