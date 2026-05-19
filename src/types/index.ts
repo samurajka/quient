@@ -20,5 +20,5 @@ export interface AuthContextType {
     isLoading: boolean;
     register: (login:string, password:string) => Promise<void>;
     login: (login:string, password:string) => Promise<void>;
-    logout: () => void;
+    logout: (token:string) => Promise<void>;
 }
