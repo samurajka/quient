@@ -2,19 +2,23 @@ import type React from 'react';
 import {useChat} from '../context/ChatContext';
 import { useEffect, useRef } from 'react';
 import { Box, Paper, Typography, Container } from '@mui/material';
+import { ChatInputField } from '../components/ChatInputField';
+import { useWebSocket } from '../hooks/useWebSocket';
 
 export const ChatPage: React.FC = () => {
     const { messages } = useChat();
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const { sendChatMessage, connect, disconnect } = useWebSocket();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({behavior: 'smooth'})
     };
 
     useEffect(() => {
+        connect();
         scrollToBottom();
     }, 
-    [messages]
+    [messages, connect]
     );
 
     return (
@@ -35,6 +39,7 @@ export const ChatPage: React.FC = () => {
                 ))}    
                 <div ref={messagesEndRef} />
             </Box>
+            <ChatInputField onSendMessage={sendChatMessage} />
         </Container>
     );
 }

@@ -88,6 +88,28 @@ export const useWebSocket = () => {
     [token]
     );
 
+    const sendHandlers = {
+        'chat.message.send': (payload: {message: string}) => {
+            return {type: 'chat.message.send', ...payload};
+        },
+    }
+
+    const sendMessage = useCallback((type:string, payload:any) => {
+        console.log(socketRef.current)
+        if(!socketRef.current){return;}
+
+        console.log('debug1')
+
+        const handler = sendHandlers[type as keyof typeof sendHandlers];
+        if(handler){
+            const message = handler(payload);
+            socketRef.current.send(JSON.stringify(message));
+            console.log(message);
+        } else{
+            console.warn('unknown send handler', type);
+        }
+    },[]) 
+
     const disconnect = useCallback(
     () => {
         if(!socketRef.current){return}
@@ -121,7 +143,12 @@ export const useWebSocket = () => {
     []
     );
 
+    const sendChatMessage = useCallback((message:string) => {
+        sendMessage('chat.message.send', {message})
+    },[sendMessage])    
+
     return {
-        connect, disconnect
+        connect, disconnect, 
+        sendChatMessage
     };
 }
